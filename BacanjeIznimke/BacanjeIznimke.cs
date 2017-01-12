@@ -4,17 +4,23 @@ namespace Vsite.CSharp
 {
     public static class Math
     {
-       public static int Faktorjel(int broj)
+        public static int Faktorjel(int broj)
         {
-                // TODO: Dodati u metodu provjeru je li argument manji od 0 i u tom slučaju baciti iznimku tipa 
-                // ArgumentOutOfRangeException s odogovarajućom porukom
-                if (broj < 0) throw new ArgumentOutOfRangeException(nameof(broj), "Broj je propao među negativce");
-            
+            // TODO: Dodati u metodu provjeru je li argument manji od 0 i u tom slučaju baciti iznimku tipa 
+            // ArgumentOutOfRangeException s odogovarajućom porukom
+            if (broj < 0) throw new ArgumentOutOfRangeException(nameof(broj), "Broj je propao među negativce");
+            try
+            {
                 int rezultat = 1;
                 for (int i = 2; i <= broj; ++i)
                     rezultat *= i;
-                return rezultat;  
-        } 
+                return rezultat;
+            }
+            catch (OverflowException e)
+            {
+                throw new ArgumentOutOfRangeException(nameof(broj),broj,"Argument je prevelik");
+            }
+        }
     public static int Povrh(int n, int k)
         {
             return Faktorjel(n) / (Faktorjel(k) * Faktorjel(n - k));
